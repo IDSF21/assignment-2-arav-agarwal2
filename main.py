@@ -95,6 +95,7 @@ def init_callback(user_input):
 #TODO: Add input validation to the search box, using the /paper/id system.
 
 def add_fd_paper_callback(forward_info, user_input, current_title, choice_forward, move=True):
+    choice_forward = st.session_state.choice_forward
     for elem in forward_info:
         if elem["citingPaper"]["title"] == choice_forward:
             st.session_state['paper_list'].append((user_input, current_title, elem["citingPaper"]["paperId"], choice_forward))
@@ -105,6 +106,7 @@ def add_fd_paper_callback(forward_info, user_input, current_title, choice_forwar
             break
 
 def add_bk_paper_callback(backward_info, user_input, current_title, choice_backward, move=True):
+    choice_backward = st.session_state.choice_backward
     for elem in backward_info:
         if elem["citedPaper"]["title"] == choice_backward:
             st.session_state['paper_list'].append((elem["citedPaper"]["paperId"], choice_backward, user_input, current_title))
@@ -209,12 +211,12 @@ else:
     
     st.header('Navigation')
     with st.form(key="tf2"):
-        choice_forward = st.selectbox("Papers Citing This Paper", forward_titles)
+        choice_forward = st.selectbox("Papers Citing This Paper", forward_titles, key="choice_forward")
         select_forward = st.form_submit_button("Add this paper to reading list", on_click=add_fd_paper_callback, args=(forward_info, user_input, current_title, choice_forward, False))
         select_forward = st.form_submit_button("Go to this paper", on_click=add_fd_paper_callback, args=(forward_info, user_input, current_title, choice_forward, True))
     
     with st.form(key="tf3"):
-        choice_backward = st.selectbox("Current Paper Citations", backward_titles)
+        choice_backward = st.selectbox("Current Paper Citations", backward_titles, key="choice_backward")
         select_backward = st.form_submit_button("Add this paper to reading list", on_click=add_bk_paper_callback, args=(backward_info, user_input, current_title, choice_backward, False))
         select_backward = st.form_submit_button("Go to this paper", on_click=add_bk_paper_callback, args=(backward_info, user_input, current_title, choice_backward, True))
     if len(st.session_state["paper_hist"]) > 1:
