@@ -146,11 +146,10 @@ if st.session_state['exploration_state'] == 0:
     st.header("Welcome to the Paper Explorer! ")
     st.write("Start by going to Semantic Scholar, and looking for the initial seed paper you wish to look at.")
     st.write("Get the Semantic Scholar ID for this paper, and place it here.")
-    with st.form(key="tf1"):
-        user_input = st.text_input("Paper Id", "6a9fa4c579bfd4fe4b1b06f384b946c5c28e1c47")
-        st.write("Selected Paper:")
-        current_title = getBasicPaperData(user_input)
-        use_this_paper = st.form_submit_button("Choose this paper!", on_click=init_callback, args=(user_input,))
+    user_input = st.text_input("Paper Id", "6a9fa4c579bfd4fe4b1b06f384b946c5c28e1c47")
+    st.write("Selected Paper:")
+    current_title = getBasicPaperData(user_input)
+    use_this_paper = st.button("Choose this paper!", on_click=init_callback, args=(user_input,))
     
         
         
