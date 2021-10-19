@@ -31,7 +31,7 @@ def getBasicPaperData(paperid, verbose=True):
     #output
     if verbose:
         if "title" not in output:
-            st.write("Error: You have something wrong with your Semantic Scholar ID")
+            st.error("Error: You have something wrong with your Semantic Scholar ID")
             return "ERROR"
         st.subheader(output["title"])
         st.text(", ".join(elem["name"] for elem in output["authors"]))
@@ -240,5 +240,6 @@ else:
     read_hist_str = paper_hist()
     st.download_button("Download your reading list!", data=read_hist_str, file_name='ReadingList.txt')
         
+st.write("View source code and writeup here: https://github.com/IDSF21/assignment-2-arav-agarwal2")
 
 
