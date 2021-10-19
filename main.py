@@ -30,6 +30,9 @@ def getBasicPaperData(paperid, verbose=True):
     output = get_data()
     #output
     if verbose:
+        if "title" not in output:
+            st.write("Error: You have something wrong with your Semantic Scholar ID")
+            return "ERROR"
         st.subheader(output["title"])
         st.text(", ".join(elem["name"] for elem in output["authors"]))
         st.text(output["venue"] + " " + str(output["year"]))
